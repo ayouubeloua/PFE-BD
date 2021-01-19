@@ -1,0 +1,39 @@
+comment ca marche : 
+
+=> le dossier /cfg : Contient la description de chaque table 
+
+=> createfolders.ksh : Creation des chemins 
+
+=> Listes_des_tables.cfg contient la liste des tables 
+
+=> /FIX : Dossier qui contient les fichiers non modifiables ou les fichiers dont on va récupérer une partie de leurs contenues
+ 
+=> fichier_config.ksh : Contient les paramétres (champs techniques) ((à COMPLETER))
+
+=> Bbtools.ksh : Moteur INIT 
+
+##EXECUTION :
+$ bash Bbtools.ksh Liste_des_tables.cfg <paramétre> 
+
+<Paramétre>:  
+			CFG : faire appel au Moteur GENERATE_CFG.ksh
+			XFR : faire appel au Moteur GENERATE_XFR.ksh
+			SQL : faire appel au Moteur GENERATE_SQL.ksh
+			TAB_PIL : faire appel au Moteur GENERATE_TAB_PIL.ksh
+			TAB_PIL_RA : faire appel au Moteur GENERATE_TAB_PIL_RA.ksh
+			ALL : faire appel à tout les moteurs
+		
+La génération du package d'instalation : GENERATE_SH_INSTALL.ksh est relier à la génération du Moteur TAB_PIL_RA.ksh ET GENERATE_SQL.ksh puisque il utilise leurs sorties .
+
+awk -F '[[:space:]]*#[[:space:]]*' '
+FNR==NR{
+  arr[$9,$1]=(arr[$9,$1]?arr[$9,$1]",":"")$3
+  next
+}
+(($9,$1) in arr){
+  close(outputFile)
+  outputFile=$1
+  print $9"#"arr[$9,$1] >> (outputFile)
+  delete arr[$9,$1]
+}
+' $target $target
