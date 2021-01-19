@@ -1,0 +1,4 @@
+cmd_verif_bdd.py : permet de vérifier si il y a des liens sur les sites qu'on à déja utilisé qui ne sont pas importés (prend soit verif en arg, soit insert et un lien)
+cmd_generate_postgres.py : permet de générer les commandes pour importer tous les csv d'un dossier
+cmd_import_csv.py : import de n'importe quel csv dans une table (entrée nom du fichier et séparateur si nécessaire) 
+cmd_import_api : permet d'insérer un fichier api en mode append dans une table
